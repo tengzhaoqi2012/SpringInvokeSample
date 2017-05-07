@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">  
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' >  
+	<appender name="appendConsole" class="org.apache.log4j.ConsoleAppender">  
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern"     
+				value="HSM:%8r [%t] %-5p %l - %m%n" />  
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">  
+			<param name="levelMin" value="DEBUG" />  
+			<param name="levelMax" value="ERROR" />  
+			<param name="AcceptOnMatch" value="true" />  
+		</filter>  
+	</appender>  
+	<appender name="appendFile" class="org.apache.log4j.RollingFileAppender">     
+		<param name="File" value="/data/logs/config/config.log" />
+		<param name="Append" value="true" />  
+		<param name="MaxBackupIndex" value="10" />  
+		<param name="MaxFileSize" value="10MB" /> 
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern" value="HSM1:%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5p %c - %m%n" />  
+		</layout>  
+	</appender>
+	
+	<appender name="appendPredefineServiceFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/data/logs/config/appLog.log" />
+		<param name="Append" value="true" />
+		<param name="MaxBackupIndex" value="10" />
+		<param name="MaxFileSize" value="10MB" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="HSM2:%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="taskAppendFile" class="org.apache.log4j.RollingFileAppender">     
+		<param name="File" value="/data/logs/config/task.log" />
+		<param name="Append" value="true" />  
+		<param name="MaxBackupIndex" value="10" />  
+		<param name="MaxFileSize" value="10MB" /> 
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern" value="HSM3:%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5p %c - %m%n" />  
+		</layout>  
+	</appender>
+	
+	<appender name="deltaAppender" class="org.apache.log4j.RollingFileAppender">     
+		<param name="File" value="/data/logs/config/delta.log" />
+		<param name="Append" value="true" />  
+		<param name="MaxBackupIndex" value="10" />  
+		<param name="MaxFileSize" value="10MB" /> 
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern" value="%d{MM-dd HH:mm:ss SSS} %-5p-%m%n" />  
+		</layout>  
+	</appender>
+	
+	<logger name="deltaLogger" additivity="false">       
+        <priority value ="debug"/>         
+        <appender-ref ref="deltaAppender" />
+    </logger> 
+	
+	<root>
+		<priority value ="info"/>  
+		<appender-ref ref="appendConsole"/>  
+		<appender-ref ref="appendFile"/>
+		<appender-ref ref="appendPredefineServiceFile"/> 
+	</root>  
+</log4j:configuration>
