@@ -6,11 +6,14 @@
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/flex 
 	http://www.springframework.org/schema/flex/spring-flex-1.0.xsd">
+	
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="urlMap">
 			<map>
-				<entry key="*" value-ref="userService" />
+				<entry key="/remote/remotePersonService" value-ref="personService" />
+				<entry key="/remote/userService" value-ref="userService" />
 			</map>
 		</property>
 	</bean> 
+	
 </beans>
