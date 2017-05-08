@@ -9,7 +9,9 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+	<!-- 
 	<aop:aspectj-autoproxy />
+	 -->
 	<context:component-scan base-package="com.eudi" />
 
 	<bean id="userService"
@@ -19,12 +21,26 @@
 		</property>
 		<property name="serviceInterface" value="com.eudi.UserService" />
 	</bean>
-
-	<bean id="remoteService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="http://localhost:8088/spring/service" />
-		<property name="serviceInterface"
-			value="com.eudi.UserService" />
+	
+	<bean id="personService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<bean class="com.eudi.person.PersonServiceImpl" />
+		</property>
+		<property name="serviceInterface" value="com.eudi.person.IPersonService" />
 	</bean>
+
+	<bean id="remoteUserService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://localhost:8088/remote/userService" />
+		<property name="serviceInterface" value="com.eudi.UserService" />
+	</bean>
+	
+	<bean id="remotePersonService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="http://localhost:8088/remote/remotePersonService" />
+		<property name="serviceInterface" value="com.eudi.person.IPersonService" />
+	</bean>
+	
 
 </beans>
