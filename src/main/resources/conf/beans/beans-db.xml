@@ -30,6 +30,7 @@
 		<property name="serviceInterface" value="com.eudi.person.IPersonService" />
 	</bean>
 
+	<!-- 以下客户端用 -->
 	<bean id="remoteUserService"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl" value="http://localhost:8088/remote/userService" />
