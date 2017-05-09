@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 
 import com.eudi.person.IPersonService;
 import com.eudi.person.Person;
@@ -24,7 +25,12 @@ public class UserServiceTest {
 	public void initialize() {
 		DOMConfigurator.configure(ENGINE_LOG4J_CONFIG);
 		context = new ClassPathXmlApplicationContext("conf/beans/beans-*.xml");
-		userService = (UserService) context.getBean("remoteUserService");
+		//userService = (UserService) context.getBean("remoteUserService");
+		HttpInvokerProxyFactoryBean proxy = new HttpInvokerProxyFactoryBean();
+		proxy.setServiceInterface(UserService.class);
+		proxy.setServiceUrl("http://localhost:8088/remote/userService");
+		proxy.afterPropertiesSet();
+		userService = (UserService)proxy.getObject();
 		personService = (IPersonService) context.getBean("remotePersonService");
 	}
 
