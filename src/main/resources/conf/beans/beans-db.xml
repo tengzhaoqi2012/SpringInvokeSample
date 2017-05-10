@@ -33,9 +33,14 @@
 	<!-- 以下客户端用 -->
 	<bean id="remoteUserService"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="http://localhost:8088/remote/userService" />
+		<property name="serviceUrl" value="https://localhost:8443/remote/userService" />
 		<property name="serviceInterface" value="com.eudi.UserService" />
+		<property name="httpInvokerRequestExecutor">
+			<ref bean="httpInvokerRequestExecutor" />
+		</property>
 	</bean>
+	
+	<bean id="httpInvokerRequestExecutor" class="com.eudi.remote.EUDICommonsHttpInvokerRequestExecutor"></bean>
 	
 	<bean id="remotePersonService"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
